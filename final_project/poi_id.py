@@ -4,7 +4,7 @@ import sys
 import pickle
 sys.path.append("../tools/")
 import pprint
-import matplotlib.pyplot
+import matplotlib.pyplot as plt
 from PIL import Image
 
 from feature_format import featureFormat, targetFeatureSplit
@@ -19,17 +19,22 @@ features_list = ['salary','bonus'] # You will need to use more features
 with open("final_project_dataset.pkl", "r") as data_file:
     data_dict = pickle.load(data_file)
 
+data_dict.pop('TOTAL')
+
 data = featureFormat(data_dict, features_list)
 
 for point in data:
     salary = point[0]
     bonus = point[1]
-    matplotlib.pyplot.scatter( salary, bonus )
+    plt.scatter( salary, bonus )
 
-matplotlib.pyplot.xlabel("salary")
-matplotlib.pyplot.ylabel("bonus")
-matplotlib.pyplot.savefig("Figure_Outliers.png")
-matplotlib.pyplot.show()
+plt.xlabel("Salary in USD")
+plt.ylabel("Bonus")
+plt.title("Bonus over Salary")
+plt.savefig("Figure_Outliers.png")
+plt.show()
+
+
 
 
 # ### Task 2: Remove outliers
